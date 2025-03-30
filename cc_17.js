@@ -145,6 +145,6 @@ class VIPCustomer extends Customer {
   
   // Last step : log everything 
   console.log(" Total Revenue from All Clients:", totalRevenue);
-  console.log(" Customers Who Spent Over $500:", bigSpenders);
+  console.log("Customers Who Spent Over $500:", bigSpenders.map(c => c.name));
   console.log(" Client Spending Summary:");
   console.log(customerSummary);
