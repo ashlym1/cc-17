@@ -21,7 +21,8 @@ class Customer {
   }
   
   // ** Test case creating a customer to test if it works
-  const customer1 = new Customer("Jenny Luna ", "luna@miffyshop.com");
+  const customer1 = new Customer("Jenny Luna", "luna@miffyshop.com");
+
   
   // adding purchases
   customer1.addPurchase(140);
@@ -66,7 +67,8 @@ class SalesRep {
   
   // checking how much the customer spent through the sales rep
   console.log("Sales rep:", rep1.name);
-  console.log("Client total spent (Luna Bun):", rep1.getClientTotal("Jenni Luna "));
+  console.log("Client total spent (Jenny Luna):", rep1.getClientTotal("Jenny Luna"));
+
   
 // Task 3: Creating the VIPCustomer class 
 
@@ -97,3 +99,52 @@ class VIPCustomer extends Customer {
   console.log("Status:", vip1.vipLevel);
   console.log("Total spent with loyalty bonus:", vip1.getTotalSpent());
   
+  // Task 4: Building a client report system ; Creating multiple cutomers ( regula + VIP) + sales rep
+  // New customers 
+  const customer2 = new Customer("Sunny Smith ", "sunny@shop.com");
+  customer2.addPurchase(150);
+  customer2.addPurchase(75);
+
+  const vip2 = new VIPCustomer("Clara Reyes ", "clara@vip.com", "Gold");
+  vip2.addPurchase(800);
+  vip2.addPurchase(100);
+
+  const customer3 = new Customer("Valentina Gonzalez  ", "Vale@shop.com");
+  customer3.addPurchase(100);
+  customer3.addPurchase(75);
+
+  const vip3 = new VIPCustomer("Lenny Brown ", "Lenny a@vip.com", "Gold");
+  vip3.addPurchase(900);
+  vip3.addPurchase(200);
+  
+  // adding the customers to the rep from before 
+  rep1.addClient(customer2);
+  rep1.addClient(vip1); // 
+  rep1.addClient(vip2);
+  
+  // create an array of all customers (regular + VIP)
+  const allClients = rep1.clients;
+  
+  // Step1: calculated the  total revenue using .reduce()
+  let totalRevenue = allClients.reduce(function (sum, customer) {
+    return sum + customer.getTotalSpent();
+  }, 0);
+  
+  // step 2; this finds the  customers who spent over $500 using .filter()
+  let bigSpenders = allClients.filter(function (customer) {
+    return customer.getTotalSpent() > 500;
+  });
+  
+  // Step 3.  using .map to create an array out of  names and total spent
+  let customerSummary = allClients.map(function (customer) {
+    return {
+      name: customer.name,
+      totalSpent: customer.getTotalSpent()
+    };
+  });
+  
+  // Last step : log everything 
+  console.log(" Total Revenue from All Clients:", totalRevenue);
+  console.log(" Customers Who Spent Over $500:", bigSpenders);
+  console.log(" Client Spending Summary:");
+  console.log(customerSummary);
